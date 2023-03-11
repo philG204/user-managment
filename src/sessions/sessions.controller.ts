@@ -1,7 +1,4 @@
 import { Controller, Get, Post, Delete, Body, Param, Header, HttpStatus, HttpCode } from '@nestjs/common';
-import { Console } from 'console';
-import { type } from 'os';
-import { identity } from 'rxjs';
 import { Session } from '../entity/session.entity';
 import { SessionsService } from './sessions.service';
 

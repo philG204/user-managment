@@ -15,7 +15,9 @@ export class UsersService {
     }
 
     async findAll(): Promise<User[]>{
-        return this.userRepository.find();
+        const allUsers = this.userRepository.find();
+        console.log(allUsers);
+        return allUsers;
     }
 
     async deleteOne(id: number): Promise<void>{
