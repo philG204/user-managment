@@ -10,7 +10,7 @@ import { SessionsionModule } from './sessions/sessions.module';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
+    host: '10.56.1.21',
     port: 5432,
     username: 'postgres',
     password: '7_!?FHrE89',
