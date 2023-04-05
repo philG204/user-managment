@@ -21,9 +21,9 @@ import { ApiKeyMiddleware } from './auth/api-key.middleware';
     database: 'home-dev',
     entities: [User, Session],
     synchronize: true
-  }), UsersModule, SessionsionModule, PassportModule.register({ defaultStrategy: 'api-key' })],
+  }), UsersModule, SessionsionModule ],
   controllers: [AppController],
-  providers: [AppService, ApiKeyGuard, AuthService],
+  providers: [AppService, ApiKeyGuard, AuthService, ApiKeyMiddleware],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer){

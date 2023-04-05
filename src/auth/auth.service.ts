@@ -8,7 +8,7 @@ export class AuthService {
     private readonly config: Config;
 
     constructor(){
-        this.config = JSON.parse(fs.readFileSync('../config.json', 'utf-8')) as Config;
+        this.config = JSON.parse(fs.readFileSync('config.json', 'utf-8')) as Config;
     }
 
     async validateApiKey(apikey: string): Promise<boolean> {
