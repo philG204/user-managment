@@ -9,13 +9,16 @@ export class AuthService {
 
     constructor(){
         this.config = JSON.parse(fs.readFileSync('config.json', 'utf-8')) as Config;
+        console.log(this.config.apiKey);
     }
 
     async validateApiKey(apikey: string): Promise<boolean> {
-        if(apikey === this.config.apiKey){
+        if(apikey == this.config.apiKey){
             return true;
         }
-        return false;
+        else{
+            return false;
+        }
     }
 
     generateApiKey(): string {

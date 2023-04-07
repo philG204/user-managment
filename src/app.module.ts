@@ -6,29 +6,26 @@ import { User } from './entity/user.entity';
 import { Session } from './entity/session.entity';
 import { UsersModule } from './users/users.module';
 import { SessionsionModule } from './sessions/sessions.module';
-import { ApiKeyGuard } from './auth/api-key.guard';
-import { AuthService } from './auth/auth.service';
-import { PassportModule } from '@nestjs/passport';
-import { ApiKeyMiddleware } from './auth/api-key.middleware';
+//import { AuthGuard } from './auth/auth.guard';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
-    host: '10.56.1.21',
+    host: 'localhost',
     port: 5432,
     username: 'postgres',
     password: '7_!?FHrE89',
     database: 'home-dev',
     entities: [User, Session],
     synchronize: true
-  }), UsersModule, SessionsionModule ],
+  }), UsersModule, SessionsionModule, AuthModule ],
   controllers: [AppController],
-  providers: [AppService, ApiKeyGuard, AuthService, ApiKeyMiddleware],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer){
-    consumer.apply(ApiKeyMiddleware).forRoutes('*');
-    consumer.apply(ApiKeyGuard).forRoutes('*');
+    //consumer.apply(AuthGuard).forRoutes('*');
   }
 
 }
