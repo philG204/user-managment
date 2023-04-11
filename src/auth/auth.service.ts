@@ -8,8 +8,12 @@ export class AuthService {
     private readonly config: Config;
 
     constructor(){
-        console.log(process.env.TMP);
-        this.config = JSON.parse(fs.readFileSync(String(process.env.API_KEY_DIRECTORY) + String(process.env.API_KEY_FILE), 'utf-8')) as Config;
+        try{
+            this.config = JSON.parse(fs.readFileSync(String(process.env.API_KEY_DIRECTORY) + String(process.env.API_KEY_FILE), 'utf-8')) as Config;
+        }
+        catch(e){
+            console.log(e.Message);
+        }
         console.log(this.config.apiKey);
     }
 
