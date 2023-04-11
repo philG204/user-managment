@@ -9,7 +9,7 @@ export class AuthService {
 
     constructor(){
         console.log(process.env.TMP);
-        this.config = JSON.parse(fs.readFileSync(String(process.env.TMP), 'utf-8')) as Config;
+        this.config = JSON.parse(fs.readFileSync(String(process.env.API_KEY_DIRECTORY) + String(process.env.API_KEY_FILE), 'utf-8')) as Config;
         console.log(this.config.apiKey);
     }
 
