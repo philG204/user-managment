@@ -1,6 +1,7 @@
 FROM node:14 AS builder
 
 WORKDIR /app
+RUN mkdir api_key
 
 COPY package*.json ./
 RUN npm install

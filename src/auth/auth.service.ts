@@ -18,11 +18,16 @@ export class AuthService {
     }
 
     async validateApiKey(apikey: string): Promise<boolean> {
-        if(apikey == this.config.apiKey){
-            return true;
+        try{
+            if(apikey == this.config.apiKey){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
-        else{
-            return false;
+        catch(e){
+            console.log(e.Message);
         }
     }
 
