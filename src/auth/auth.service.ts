@@ -12,22 +12,24 @@ export class AuthService {
             this.config = JSON.parse(fs.readFileSync(String(process.env.API_KEY_DIRECTORY) + String(process.env.API_KEY_FILE), 'utf-8')) as Config;
         }
         catch(e){
-            console.log(e.Message);
+            console.log("No file found");
         }
-        console.log(this.config.apiKey);
     }
 
     async validateApiKey(apikey: string): Promise<boolean> {
         try{
+            console.log(apikey);
+            console.log(this.config.apiKey);
             if(apikey == this.config.apiKey){
                 return true;
             }
             else{
-                return false;
+               return false;
             }
         }
         catch(e){
-            console.log(e.Message);
+            console.log("No API-Key found");
+            return false;
         }
     }
 
