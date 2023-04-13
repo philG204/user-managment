@@ -6,13 +6,12 @@ import { User } from './entity/user.entity';
 import { Session } from './entity/session.entity';
 import { UsersModule } from './users/users.module';
 import { SessionsionModule } from './sessions/sessions.module';
-//import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
+    host: '10.56.1.21',
     port: 5432,
     username: 'postgres',
     password: '7_!?FHrE89',
@@ -24,8 +23,8 @@ import { AuthModule } from './auth/auth.module';
   providers: [AppService],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer){
-    //consumer.apply(AuthGuard).forRoutes('*');
+  configure(consumer: MiddlewareConsumer) {
+    throw new Error('Method not implemented.');
   }
 
 }
