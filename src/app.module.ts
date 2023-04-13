@@ -22,9 +22,4 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    throw new Error('Method not implemented.');
-  }
-
-}
+export class AppModule {}
