@@ -10,9 +10,11 @@ export class AuthService {
     constructor(){
         try{
             this.config = JSON.parse(fs.readFileSync(String(process.env.API_KEY_DIRECTORY) + String(process.env.API_KEY_FILE), 'utf-8')) as Config;
+            console.log(String(process.env.API_KEY_DIRECTORY) + String(process.env.API_KEY_FILE));
         }
         catch(e){
             console.log("No file found");
+            console.log(e);
         }
     }
 
