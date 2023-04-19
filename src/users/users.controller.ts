@@ -21,9 +21,18 @@ export class UsersController {
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
     @UseGuards(AuthGuard)
-    async getUser(@Param() param): Promise<User>{
+    async getUserById(@Param() param): Promise<User>{
         console.log(param);
         return this.userService.findOne(param.id);
+    }
+
+    @Post('checkCredentials/')
+    @HttpCode(HttpStatus.OK)
+    @Header('Content-Type', 'application/json')
+    @UseGuards(AuthGuard)
+    async checkLoginCredentials(@Body() body): Promise<boolean>{
+        console.log(body);
+        return this.userService.checkLoginCredentials(body.username, body.password);
     }
 
     @Post('create')

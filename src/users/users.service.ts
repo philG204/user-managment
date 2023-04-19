@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { User } from '../entity/user.entity';
+import { threadId } from 'worker_threads';
 
 @Injectable()
 export class UsersService {
@@ -18,6 +19,17 @@ export class UsersService {
         const allUsers = this.userRepository.find();
         console.log(allUsers);
         return allUsers;
+    }
+
+    async checkLoginCredentials(username: string, password: string ): Promise<boolean>{
+        const res = this.userRepository.query("SELECT * FROM users WHERE username = :username AND password = :password;", Object.values({ username: username, password: password }));
+        console.log(res);
+        if(res){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     async deleteOne(id: number): Promise<void>{
