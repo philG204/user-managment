@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { User } from '../entity/user.entity';
-import { threadId } from 'worker_threads';
 
 @Injectable()
 export class UsersService {
@@ -11,8 +10,12 @@ export class UsersService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>){}
 
-    async findOne(id: number): Promise<User>{
+    async findOneById(id: number): Promise<User>{
         return this.userRepository.findOneBy({id});
+    }
+
+    async findOneByUsername(username: string): Promise<User>{
+        return this.userRepository.query("SELECT * FROM users WHERE username = :username", [ username ]);
     }
 
     async findAll(): Promise<User[]>{

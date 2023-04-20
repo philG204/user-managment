@@ -1,7 +1,6 @@
 import {  Controller, Get, Post, Delete, Body, Param, Header, HttpStatus, HttpCode, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../entity/user.entity';
-import { Session } from '../entity/session.entity';
 import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('users')
@@ -23,7 +22,16 @@ export class UsersController {
     @UseGuards(AuthGuard)
     async getUserById(@Param() param): Promise<User>{
         console.log(param);
-        return this.userService.findOne(param.id);
+        return this.userService.findOneById(param.id);
+    }
+
+    @Get(':username')
+    @HttpCode(HttpStatus.OK)
+    @Header('Content-Type', 'application/json')
+    @UseGuards(AuthGuard)
+    async getUserByUsername(@Param() param): Promise<User>{
+        console.log(param);
+        return this.userService.findOneByUsername(param.username);
     }
 
     @Post('checkCredentials/')
