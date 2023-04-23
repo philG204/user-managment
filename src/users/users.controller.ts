@@ -38,9 +38,17 @@ export class UsersController {
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
     @UseGuards(AuthGuard)
-    async checkLoginCredentials(@Body() body): Promise<boolean>{
+    async checkLoginCredentials(@Body() body): Promise<boolean | string>{
         console.log(body);
         return this.userService.checkLoginCredentials(body.username, body.password);
+    }
+
+    @Post('checkToken')
+    @HttpCode(HttpStatus.OK)
+    @Header('Content-Type', 'application/json')
+    @UseGuards(AuthGuard)
+    async checkToken(@Body() body): Promise<boolean>{
+        return this.userService.checkToken(body.jwt);
     }
 
     @Post('create')
