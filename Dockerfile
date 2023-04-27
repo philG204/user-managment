@@ -10,7 +10,6 @@ RUN npm run build
 FROM node:14
 
 WORKDIR /app
-RUN mkdir /api_key
 COPY package*.json ./
 RUN npm install --only=production
 RUN npm install --save @nestjs/typeorm typeorm pg
