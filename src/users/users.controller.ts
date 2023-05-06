@@ -11,6 +11,7 @@ export class UsersController {
     @Get()
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
+    @Header('Access-Control-Allow-Origin', process.env.ALLOWED_DOMAIN)
     @UseGuards(AuthGuard)
     async getAllUsers(): Promise<User[]> {
         return this.userService.findAll();
@@ -19,6 +20,7 @@ export class UsersController {
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
+    @Header('Access-Control-Allow-Origin', process.env.ALLOWED_DOMAIN)
     @UseGuards(AuthGuard)
     async getUserById(@Param() param): Promise<User>{
         console.log(param);
@@ -28,6 +30,7 @@ export class UsersController {
     @Get(':username')
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
+    @Header('Access-Control-Allow-Origin', process.env.ALLOWED_DOMAIN)
     @UseGuards(AuthGuard)
     async getUserByUsername(@Param() param): Promise<User>{
         console.log(param);
@@ -37,6 +40,7 @@ export class UsersController {
     @Post('checkCredentials/')
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
+    @Header('Access-Control-Allow-Origin', process.env.ALLOWED_DOMAIN)
     @UseGuards(AuthGuard)
     async checkLoginCredentials(@Body() body): Promise<boolean | string>{
         console.log(body);
@@ -46,6 +50,7 @@ export class UsersController {
     @Post('checkToken')
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
+    @Header('Access-Control-Allow-Origin', process.env.ALLOWED_DOMAIN)
     @UseGuards(AuthGuard)
     async checkToken(@Body() body): Promise<boolean>{
         return this.userService.checkToken(body.jwt);

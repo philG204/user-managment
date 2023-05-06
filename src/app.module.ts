@@ -3,9 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
-import { Session } from './entity/session.entity';
 import { UsersModule } from './users/users.module';
-import { SessionsionModule } from './sessions/sessions.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -16,9 +14,9 @@ import { AuthModule } from './auth/auth.module';
     username: 'postgres',
     password: '7_!?FHrE89',
     database: 'home-dev',
-    entities: [User, Session],
+    entities: [User],
     synchronize: true
-  }), UsersModule, SessionsionModule, AuthModule ],
+  }), UsersModule, AuthModule ],
   controllers: [AppController],
   providers: [AppService],
 })
