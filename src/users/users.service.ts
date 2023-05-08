@@ -18,7 +18,7 @@ export class UsersService {
     }
 
     async findOneByUsername(username: string): Promise<User>{
-        return this.userRepository.query("SELECT * FROM users WHERE username = :username", [ username ]);
+        return this.userRepository.query("SELECT * FROM users WHERE username = $1", [ username ]);
     }
 
     async findAll(): Promise<User[]>{
@@ -28,7 +28,7 @@ export class UsersService {
     }
 
     async checkLoginCredentials(username: string, password: string ): Promise<boolean | string>{
-        const res = this.userRepository.query("SELECT * FROM users WHERE username = :username AND password = :password;", Object.values({ username: username, password: password }));
+        const res = this.userRepository.query("SELECT * FROM users WHERE username = $1 AND password = $2;", [username, password]/**Object.values({ username: username, password: password })*/);
         console.log(res);
         if(res == null){
             return false;

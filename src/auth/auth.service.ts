@@ -23,9 +23,11 @@ export class AuthService {
             console.log(apikey);
             console.log(this.config.apiKey);
             if(apikey == this.config.apiKey){
+                console.log("Api-Key is valid");
                 return true;
             }
             else{
+                console.log("Api-Key is invalid");
                return false;
             }
         }
