@@ -43,7 +43,8 @@ export class UsersController {
     @Header('Access-Control-Allow-Origin', process.env.ALLOWED_DOMAIN)
     @UseGuards(AuthGuard)
     async checkLoginCredentials(@Body() body): Promise<boolean | string>{
-        console.log(body);
+        console.log(body.username);
+        console.log(body.password);
         return this.userService.checkLoginCredentials(body.username, body.password);
     }
 
