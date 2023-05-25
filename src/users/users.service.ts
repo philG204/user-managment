@@ -14,7 +14,7 @@ export class UsersService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>){}
 
-    async findOneById(id: number): Promise<User>{
+    async findOneById(id: string): Promise<User>{
         return this.userRepository.findOneBy({id});
     }
 
@@ -43,7 +43,7 @@ export class UsersService {
             const secretKey = process.env.SK_FILE;
             const token = jwt.sign(payload, secretKey);
             console.log("token :" + token);
-	    return { "token": token, success: true, user: {name: (await user).username, email: (await user).email}};
+	        return { "token": token, success: true, user: {name: (await user).username, email: (await user).email}};
         }
     }
 
@@ -57,7 +57,7 @@ export class UsersService {
     }
 
     async create(user: User): Promise<User>{
-      const guid: string = uuid4();
+      const guid: string = uuidv4();
       user.id = guid;
       return this.userRepository.save(user);
     }
