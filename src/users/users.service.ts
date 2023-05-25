@@ -5,6 +5,7 @@ import { User } from '../entity/user.entity';
 import { verify } from 'jsonwebtoken';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersService {
@@ -27,20 +28,22 @@ export class UsersService {
         return allUsers;
     }
 
-    async checkLoginCredentials(username: string, password: string ): Promise<boolean | string>{
-        const res = this.userRepository.query("SELECT * FROM users WHERE username = $1 AND pass = $2;", [username, password]/**Object.values({ username: username, password: password })*/);
-        console.log(res);
-        if(res == null){
-            return false;
+    async checkLoginCredentials(username: string, password: string ): Promise<{}>{
+	const res = await this.userRepository.query("SELECT * FROM users WHERE username = $1 AND pass = $2;", [username, password]);
+	console.log("type of res: " + typeof res);
+	console.log("res variable: " + res);
+	console.log("first entry of res: " + res[0]);
+        if(typeof res[0] === 'undefined'){
+            return { "token": "", success: false, user: {name: "", email: ""}};
         }
         else{
             // Create JWT
             const user = this.findOneByUsername(username);
             const payload = { username: (await user).username, exp: Math.floor(Date.now() / 1000)+432000, iat: Math.floor(Date.now() / 1000) };
             const secretKey = process.env.SK_FILE;
-
             const token = jwt.sign(payload, secretKey);
-            return token;
+            console.log("token :" + token);
+	    return { "token": token, success: true, user: {name: (await user).username, email: (await user).email}};
         }
     }
 
@@ -54,7 +57,9 @@ export class UsersService {
     }
 
     async create(user: User): Promise<User>{
-       return this.userRepository.save(user);
+      const guid: string = uuid4();
+      user.id = guid;
+      return this.userRepository.save(user);
     }
 
     async update(user: User): Promise<UpdateResult>{

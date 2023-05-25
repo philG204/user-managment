@@ -13,6 +13,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --only=production
 RUN npm install --save @nestjs/typeorm typeorm pg
+RUN npm install uuid
 
 WORKDIR /app
 COPY --from=builder /app/dist ./dist

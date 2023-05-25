@@ -6,7 +6,7 @@ import { AuthGuard } from '../auth/auth.guard';
 @Controller('users')
 export class UsersController {
 
-    constructor(private readonly userService: UsersService){}
+    constructor(private readonly userService: UsersService){}    
 
     @Get()
     @HttpCode(HttpStatus.OK)
@@ -37,21 +37,16 @@ export class UsersController {
         return this.userService.findOneByUsername(param.username);
     }
 
-    @Post('checkCredentials/')
-    @HttpCode(HttpStatus.OK)
+    @Post('checkCredentials')
     @Header('Content-Type', 'application/json')
-    @Header('Access-Control-Allow-Origin', process.env.ALLOWED_DOMAIN)
     @UseGuards(AuthGuard)
-    async checkLoginCredentials(@Body() body): Promise<boolean | string>{
-        console.log(body.username);
-        console.log(body.password);
-        return this.userService.checkLoginCredentials(body.username, body.password);
+    async checkLoginCredentials(@Body() body): Promise<{}>{
+	const res = this.userService.checkLoginCredentials(body.body.username, body.body.password);
+	return res;
     }
 
     @Post('checkToken')
-    @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
-    @Header('Access-Control-Allow-Origin', process.env.ALLOWED_DOMAIN)
     @UseGuards(AuthGuard)
     async checkToken(@Body() body): Promise<boolean>{
         return this.userService.checkToken(body.jwt);
@@ -77,5 +72,5 @@ export class UsersController {
     async remove(@Param() id: number): Promise<void>{
         console.log(id);
         return this.userService.deleteOne(id);
-    }
+    } 
 }
