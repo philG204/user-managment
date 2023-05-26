@@ -54,8 +54,15 @@ export class UsersController {
 
     @Post('create')
     @UseGuards(AuthGuard)
-    async create(@Body() user: User): Promise<User>{
+    async create(@Body() body: any): Promise<User>{
         console.log("New user request");
+        const user = new User();
+        user.id = uuidv4();
+        user.username = body.body.username;
+        user.firstname = body.body.firstname;
+        user.lastname = body.body.firstname;
+        user.email = body.body.email;
+        user.pass = body.body.password;
         console.log(user);
         return this.userService.create(user);
     }
@@ -74,3 +81,7 @@ export class UsersController {
         return this.userService.deleteOne(id);
     } 
 }
+function uuidv4(): string {
+    throw new Error('Function not implemented.');
+}
+
