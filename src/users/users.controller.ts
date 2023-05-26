@@ -63,7 +63,7 @@ export class UsersController {
     @Post('update/:id')
     @UseGuards(AuthGuard)
     async update(@Param('id') id, @Body() user: User): Promise<any>{
-        user.id = Number(id);
+        user.id = String(id);
         return this.userService.update(user);
     }
 

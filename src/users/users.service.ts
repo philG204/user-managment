@@ -58,7 +58,12 @@ export class UsersService {
 
     async create(user: User): Promise<User>{
       const guid: string = uuidv4();
+      console.log("Value :" + guid);
+      console.log("Type: " + typeof guid);
       user.id = guid;
+      console.log("user.id variable value: " + user.id);
+      console.log(user);
+      console.log(typeof user);
       return this.userRepository.save(user);
     }
 
