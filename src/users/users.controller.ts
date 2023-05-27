@@ -56,7 +56,9 @@ export class UsersController {
     @Post('create')
     @UseGuards(AuthGuard)
     async create(@Body() body: any): Promise<User>{
-        console.log("New user request");
+	console.log("New user request");
+	console.log(body.body.pass);
+	console.log(body);
         const user = new User();
         const guid:string = uuidv4();
         console.log(guid);
@@ -64,7 +66,7 @@ export class UsersController {
         user.firstname = body.body.firstname;
         user.lastname = body.body.firstname;
         user.email = body.body.email;
-        user.pass = body.body.password;
+        user.pass = body.body.pass;
         console.log(user);
         return this.userService.create(user);
     }
