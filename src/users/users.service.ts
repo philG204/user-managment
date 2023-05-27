@@ -6,6 +6,7 @@ import { verify } from 'jsonwebtoken';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -29,11 +30,9 @@ export class UsersService {
     }
 
     async checkLoginCredentials(username: string, password: string ): Promise<{}>{
-	const res = await this.userRepository.query("SELECT * FROM users WHERE username = $1 AND pass = $2;", [username, password]);
-	console.log("type of res: " + typeof res);
-	console.log("res variable: " + res);
-	console.log("first entry of res: " + res[0]);
-        if(typeof res[0] === 'undefined'){
+        const passwdHash = await this.userRepository.query("SELECT pass FROM users WHERE username = $1", [username]);
+        
+        if(!bcrypt.compare(password, passwdHash)){
             return { "token": "", success: false, user: {name: "", email: ""}};
         }
         else{
