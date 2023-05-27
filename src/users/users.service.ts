@@ -6,7 +6,7 @@ import { verify } from 'jsonwebtoken';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
