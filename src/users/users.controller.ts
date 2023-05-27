@@ -2,6 +2,7 @@ import {  Controller, Get, Post, Delete, Body, Param, Header, HttpStatus, HttpCo
 import { UsersService } from './users.service';
 import { User } from '../entity/user.entity';
 import { AuthGuard } from '../auth/auth.guard';
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('users')
 export class UsersController {
@@ -57,7 +58,9 @@ export class UsersController {
     async create(@Body() body: any): Promise<User>{
         console.log("New user request");
         const user = new User();
-        user.id = uuidv4();
+        //const guid:string = uuidv4();
+	console.log(guid);
+	user.id = guid;
         user.username = body.body.username;
         user.firstname = body.body.firstname;
         user.lastname = body.body.firstname;
