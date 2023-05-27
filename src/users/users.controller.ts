@@ -58,9 +58,8 @@ export class UsersController {
     async create(@Body() body: any): Promise<User>{
         console.log("New user request");
         const user = new User();
-        //const guid:string = uuidv4();
-	console.log(guid);
-	user.id = guid;
+        const guid:string = uuidv4();
+        console.log(guid);
         user.username = body.body.username;
         user.firstname = body.body.firstname;
         user.lastname = body.body.firstname;
@@ -83,8 +82,5 @@ export class UsersController {
         console.log(id);
         return this.userService.deleteOne(id);
     } 
-}
-function uuidv4(): string {
-    throw new Error('Function not implemented.');
 }
 
