@@ -31,21 +31,24 @@ export class UsersService {
 
     async checkLoginCredentials(username: string, password: string ): Promise<{}>{
         const passwdHash = await this.userRepository.query("SELECT pass FROM users WHERE username = $1", [username]);
-	console.log("Type of password: " + typeof password);
-	console.log("Type of passwdHash: " + typeof passwdHash);
-	const passwordMatch = await bcrypt.compare(password, passwdHash);	
+	    if(typeof passwdHash[0] != 'undefined'){
+            const passwordMatch = await bcrypt.compare(password, passwdHash[0].pass);	
         
-        if(!passwordMatch){
-            return { "token": "", success: false, user: {name: "", email: ""}};
+            if(!passwordMatch){
+                return { token: "", code: 2, success: false, user: null};
+            }
+            else{
+                // Create JWT
+                const user = this.findOneByUsername(username);
+                const payload = { username: (await user).username, exp: Math.floor(Date.now() / 1000)+432000, iat: Math.floor(Date.now() / 1000) };
+                const secretKey = process.env.SK_FILE;
+                const token = jwt.sign(payload, secretKey);
+                console.log("token :" + token);
+	            return { "token": token, code: 0, success: true, user: {name: (await user).username, email: (await user).email}};
+            }
         }
         else{
-            // Create JWT
-            const user = this.findOneByUsername(username);
-            const payload = { username: (await user).username, exp: Math.floor(Date.now() / 1000)+432000, iat: Math.floor(Date.now() / 1000) };
-            const secretKey = process.env.SK_FILE;
-            const token = jwt.sign(payload, secretKey);
-            console.log("token :" + token);
-	        return { "token": token, success: true, user: {name: (await user).username, email: (await user).email}};
+            return { token: "", code: 1, success: false, user: null};
         }
     }
 
