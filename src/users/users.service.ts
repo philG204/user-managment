@@ -31,8 +31,11 @@ export class UsersService {
 
     async checkLoginCredentials(username: string, password: string ): Promise<{}>{
         const passwdHash = await this.userRepository.query("SELECT pass FROM users WHERE username = $1", [username]);
+	console.log("Type of password: " + typeof password);
+	console.log("Type of passwdHash: " + typeof passwdHash);
+	const passwordMatch = await bcrypt.compare(password, passwdHash);	
         
-        if(!bcrypt.compare(password, passwdHash)){
+        if(!passwordMatch){
             return { "token": "", success: false, user: {name: "", email: ""}};
         }
         else{
