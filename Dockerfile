@@ -12,7 +12,6 @@ FROM nginx:alpine
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --only=production
 RUN npm install --save @nestjs/typeorm typeorm pg
 RUN npm install uuid
 RUN rm -rf /etc/nginx/conf.d/*
