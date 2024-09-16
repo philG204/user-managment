@@ -24,6 +24,8 @@
 
 ## Description
 This is the back-end microservice for a user managment web application, wich connects to a PostgreSQL Database.
+To access the user data go to the 'users' route in your domain URL, there you will find all the user 
+operations as the following: ""
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
