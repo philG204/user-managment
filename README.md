@@ -23,7 +23,7 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
-
+This is the back-end microservice for a user managment web application, wich connects to a PostgreSQL Database.
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
